@@ -42,3 +42,15 @@ jobs:
 
   # Runs tests as defined in the project's package.json
       - run: npm test
+      
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/app
+            git pull origin main
+            npm install
+            pm2 restart app || pm2 start index.js --name "app"

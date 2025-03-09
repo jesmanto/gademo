@@ -1,25 +1,25 @@
-name: Deploy to AWS EC2
+# name: Deploy to AWS EC2
 
-on:
-  workflow_run:
-    workflows: ["Node.js CI"]  # Name of the test workflow
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows: ["Node.js CI"]  # Name of the test workflow
+#     types:
+#       - completed
 
-jobs:
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Only if tests pass
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     if: ${{ github.event.workflow_run.conclusion == 'success' }} # Only if tests pass
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.2.2
-        with:
-          host: 44.211.62.8
-          username: ${{ secrets.AWS_USER }}
-          key: ${{ secrets.AWS_PRIVATE_KEY }}
-          script: |
-            cd /home/ubuntu/app
-            git pull origin main
-            npm install
-            pm2 restart app || pm2 start index.js --name "app"
+#     steps:
+#       - name: Deploy to EC2
+#         uses: appleboy/ssh-action@v1.2.2
+#         with:
+#           host: ${{ secrets.AWS_HOST }}
+#           username: ${{ secrets.AWS_USER }}
+#           key: ${{ secrets.AWS_PRIVATE_KEY }}
+#           script: |
+#             cd /home/ubuntu/app
+#             git pull origin main
+#             npm install
+#             pm2 restart app || pm2 start index.js --name "app"
