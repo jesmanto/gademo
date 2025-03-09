@@ -215,3 +215,17 @@
     >**PM2 is a Production Process Manager for Node.js applications with a built-in Load Balancer**
 
 - Test your server by visiting `your-pubic-ip:3000`
+
+## Challenges Faced
+I faced so many challenges that caused my workflows to fail, these challenges include:
+- Linking two workflows such that the second triggers after the first completes.
+- Creating repository secret variables.
+- Proper indentation of various component
+- integrating unit tests
+
+
+## Lessons Learnt
+- I can trigger a workflow with the success status of the previous workflow 
+- secrets variables must be stored separately for each repository. This took me 2 hours to figure out, after 16 failures.
+- When working with github action yaml files, `name`, `uses` and `run` must be on the same line of indentation.
+- Install all necessary dependencies and test your application before pushing to remote repository.
