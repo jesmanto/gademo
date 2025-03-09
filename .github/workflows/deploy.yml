@@ -17,7 +17,7 @@ jobs:
         with:
           host: 44.211.62.8
           username: ${{ secrets.AWS_USER }}
-          key: "${{ secrets.AWS_PRIVATE_KEY }}"
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/app
             git pull origin main
