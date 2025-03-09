@@ -1,5 +1,3 @@
-# Example: .github/workflows/node.js.yml
-
 # Name of the workflow
 name: Node.js CI
 
@@ -34,7 +32,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-        node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
 
   # Installs node modules as specified in the project's package-lock.json
       - run: npm ci
