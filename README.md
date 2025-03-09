@@ -38,7 +38,7 @@
     });
 
     ```
-## Writing Your First Github Action Workflow
+## Writing Your First Github Action Workflow to Test the Application
 - Create a new directory called `.github`
     ```
     mkdir .github
@@ -170,3 +170,48 @@
         });
     });
     ```
+ ## Test the workflow
+ The workflow executed successfully after fifteen tries. It failed for fourteen time due to certain reasons which can be found in the Challenges section.
+    ![](./img/tries.png)
+
+## Deploy the app to AWS
+
+- Create another workflow file named `deploy.yml`
+- Give the workflow a name
+    ```
+    name: Deploy to AWS EC2
+    ```
+- Specify the event to trigger the workflow. The snippet below shows that the workflow will trigger at a push event to the main branch. This is using the `on` term.
+    ```
+    on:
+        workflow_run:
+            workflows: ["Run Tests"]  # Name of the test workflow
+            types:
+            - completed
+    ```
+
+- Add jobs and steps to your workflow
+    ![](./img/deploy-jobs.png)
+
+### Setup your EC2 server
+- Create a new AWS EC2 instance
+- Connect to the EC2 instance server through your terminal
+    ![](./img/connect-ec2.png)
+
+- Install the necessary dependencies on the EC2 server
+    ```
+    sudo apt update && sudo apt install -y git nodejs npm
+    npm install -g pm2
+    ```
+- Clone your project into a directory named `app` on the EC2 server
+    ```
+    git clone https://github.com/yourusername/yourrepo.git app
+    ```
+- Run `npm install`
+- Start the server using pm2
+    ```
+    pm2 start index.js --name "app"
+    ```
+    >**PM2 is a Production Process Manager for Node.js applications with a built-in Load Balancer**
+
+- Test your server by visiting `your-pubic-ip:3000`
