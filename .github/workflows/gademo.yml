@@ -21,7 +21,7 @@ jobs:
     strategy:
   # A matrix build strategy to test against multiple versions of Node.js
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x]
 
   # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
