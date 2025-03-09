@@ -42,8 +42,22 @@ jobs:
 
   # Runs tests as defined in the project's package.json
       - run: npm test
-      - run: echo "AWS_HOST=$AWS_HOST"
-      - run: echo "AWS_USER=${{ secrets.AWS_HOST }}"
+      - name: Debug Secrets
+        run: |
+          if [ -z "${{ secrets.AWS_PRIVATE_KEY }}" ]; then
+            echo "❌ AWS_PRIVATE_KEY is missing or empty!"
+            exit 1
+          else
+            echo "✅ AWS_PRIVATE_KEY is set."
+          fi
+
+          if [ -z "${{ secrets.AWS_HOST }}" ]; then
+            echo "❌ AWS_HOST is missing!"
+            exit 1
+          else
+            echo "✅ AWS_HOST is set."
+          fi
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.2
         with:
