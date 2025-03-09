@@ -150,3 +150,23 @@
 4. `runs-on`: Defines the type of machine to run the job on. Here, it's using the latest Ubuntu virtual machine.
 5. `strategy.matrix`: This allows you to run the job on multiple versions of Nodejs, ensuring compatibility.
 6. `steps`: A sequence of tasks executed as part of the job 
+
+## Let's add Unit Tests
+- Install Junit reporter and update `package.json` to generate junit reports.
+
+    ```
+    npm install --save-dev jest-junit
+    ```
+- Write a simple unit test in the test file just created.
+
+    ```
+    const request = require('supertest');
+    const app = require('../src/app');
+
+    describe('GET /', () => {
+        it('should respond with Hello World', async () => {
+            const response = await request(app).get('/');
+            expect(response.text).toEqual('Hello World');
+        });
+    });
+    ```
