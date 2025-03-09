@@ -28,19 +28,19 @@ jobs:
   # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
   # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
   # Sets up the specified version of Node.js
-      name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
         node-version: ${{ matrix.node-version }}
 
   # Installs node modules as specified in the project's package-lock.json
-      run: npm ci
+      - run: npm ci
 
   # This command will only run if a build script is defined in the package.json
-      run: npm run build --if-present
+      - run: npm run build --if-present
 
   # Runs tests as defined in the project's package.json
-      run: npm test
+      - run: npm test
